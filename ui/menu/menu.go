@@ -5,9 +5,12 @@ import (
 	"os"
 
 	"github.com/manifoldco/promptui"
+	"github.com/ogioldat/cantor/config"
 	"github.com/ogioldat/cantor/ui/functionalities"
 	"github.com/pterm/pterm"
 )
+
+var cfg, helpers = config.GetConfig()
 
 func ShowHeader(headstring string) {
 	ptermLogo, _ := pterm.DefaultBigText.WithLetters(
@@ -22,16 +25,21 @@ func ShowHeader(headstring string) {
 
 func Showmenu() {
 
+	var menuItems []string
+
+	// fmt.Println(cfg.MenuOptions)
+
+	for _, option := range cfg.MenuOptions {
+		// fmt.Println(option.Name)
+		menuItems = append(menuItems, option.Name)
+	}
+
+	fmt.Printf(menuItems[3])
+
 	ShowHeader("MENU GŁÓWNE")
 	prompt := promptui.Select{
 		Label: "Wybierz opcję: ",
-		Items: []string{"Wyświetl aktualny kursów walut obcych",
-			"Wyświetl kursów walut obcych z dnia wprowadzonego przez użytkownika",
-			"Wyświetl aktuale kursy kupna i sprzedaży walut obcych",
-			"Wyświetl kursy kupna i sprzedaży walut obcych z wybranego dnia",
-			"Przelicz waluty po aktualnej cenie bądź cenie z wybranego dnia",
-			"Ustawienia",
-			"Zakończ program"},
+		Items: menuItems,
 	}
 
 	_, result, err := prompt.Run()

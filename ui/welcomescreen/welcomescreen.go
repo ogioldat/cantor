@@ -8,7 +8,7 @@ import (
 )
 
 const second = time.Second
-const sleepTime = 5 // s
+const sleepTime = 5
 
 func GetMessage(t int) string {
 	return "Uruchomienie prgramu nastąpi za " + strconv.Itoa(t) + "s"
