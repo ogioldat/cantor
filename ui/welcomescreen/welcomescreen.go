@@ -45,6 +45,7 @@ func IntroScreen() {
 
 	LaunchMessage("Uruchomienie prgramu nastąpi za " + strconv.Itoa(sleepTime) + "s")
 	pterm.Println()
+	Clear()
 
 }
 

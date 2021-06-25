@@ -8,7 +8,9 @@ import (
 	"github.com/pterm/pterm"
 )
 
-func menu() {
+func ShowHeader() {}
+
+func Showmenu() {
 
 	ptermLogo, _ := pterm.DefaultBigText.WithLetters(
 		pterm.NewLettersFromStringWithStyle("CANTOR", pterm.NewStyle(pterm.FgLightCyan)),
@@ -16,6 +18,7 @@ func menu() {
 		Srender()
 
 	pterm.DefaultCenter.Print(ptermLogo)
+	pterm.DefaultCenter.Print(pterm.DefaultHeader.WithFullWidth().WithBackgroundStyle(pterm.NewStyle(pterm.BgLightBlue)).WithMargin(10).Sprint("MENU GŁÓWNE"))
 
 	prompt := promptui.Select{
 		Label: "Wybierz opcję: ",
@@ -54,7 +57,7 @@ func menu() {
 
 	}
 	if result == "Zakończ program" {
+		print("\033[H\033[2J")
 		os.Exit(3)
 	}
-	fmt.Printf("wybrałeś opcję: %q\n", result)
 }
