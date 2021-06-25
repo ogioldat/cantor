@@ -21,12 +21,12 @@ var DEFAULT_PARAMS = map[string]string{"format": "json"}
 
 func ApplyURL(endpoint string) string {
 	cfg, _ := GetConfig()
-	return cfg.NBP_BASE_URL + endpoint + "/" + utils.ParseURLParams(DEFAULT_PARAMS)
+	return cfg.NBP_BASE_URL + endpoint + "?" + utils.ParseURLParams(DEFAULT_PARAMS)
 }
 
 func GetConfig() (Config, Helpers) {
 	return Config{
-			NBP_BASE_URL: "http://api.nbp.pl/api/exchangerates/",
+			NBP_BASE_URL: "http://api.nbp.pl/api/exchangerates/tables/",
 			Endpoints: Endpoints{
 				Currencies: []string{"A", "B", "C"},
 			},
