@@ -5,32 +5,33 @@ import (
 )
 
 type Config struct {
-	NBP_API_URL string
-	endpoint    Endpoints
+	NBP_BASE_URL string
+	Endpoints    Endpoints
+}
+
+type Helpers struct {
+	ApplyURL func(string) string
 }
 
 type Endpoints struct {
-	currencies string
-}
-
-var ConfigMap = Config{
-	NBP_API_URL: "http://api.nbp.pl/api/exchangerates/",
-	endpoint: Endpoints{
-		currencies: "/tables",
-	},
+	Currencies []string
 }
 
 var DEFAULT_PARAMS = map[string]string{"format": "json"}
 
-func GetEndpointFn(params map[string]string) string {
-
-	for key, value := range DEFAULT_PARAMS {
-		params[key] = value
-	}
-
-	return utils.ParseURLParams(params)
+func ApplyURL(endpoint string) string {
+	cfg, _ := GetConfig()
+	return cfg.NBP_BASE_URL + endpoint + "/" + utils.ParseURLParams(DEFAULT_PARAMS)
 }
 
-func GetConfig() Config {
-	return ConfigMap
+func GetConfig() (Config, Helpers) {
+	return Config{
+			NBP_BASE_URL: "http://api.nbp.pl/api/exchangerates/",
+			Endpoints: Endpoints{
+				Currencies: []string{"A", "B", "C"},
+			},
+		},
+		Helpers{
+			ApplyURL,
+		}
 }

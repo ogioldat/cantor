@@ -7,7 +7,13 @@ import (
 )
 
 func GetLatestCurrencies() {
-	url := config.GetConfig().NBP_API_URL
+	cfg, helpers := config.GetConfig()
 
-	fmt.Println(url)
+	for endpoint := range cfg.Endpoints.Currencies {
+		fmt.Println(endpoint)
+	}
+
+	fmt.Println(cfg.Endpoints)
+	fmt.Println(cfg.NBP_BASE_URL)
+	fmt.Println(helpers.ApplyURL("test"))
 }
