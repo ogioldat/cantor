@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/manifoldco/promptui"
-	"github.com/ogioldat/cantor/ui/menu"
 )
 
 func DisplayCurrentCurrencies() {
@@ -39,6 +38,5 @@ func Settings() {
 	}
 	if result == "Powrót" {
 		print("\033[H\033[2J")
-		menu.Showmenu()
 	}
 }
