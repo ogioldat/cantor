@@ -1,5 +1,6 @@
 package functionalities
 
+<<<<<<< HEAD
 import (
 	"fmt"
 	"strconv"
@@ -11,6 +12,9 @@ import (
 
 func DisplayLatestCurrencies() {
 	currencies := web.GetLatestCurrencies()
+=======
+func DisplayCurrentCurrencies() {
+>>>>>>> aeba3ad8e91e2d1dd2265bc26d3d4c97c0519f0c
 
 	var rows [][]string
 
@@ -45,16 +49,5 @@ func CurrencyConversion() {
 }
 
 func Settings() {
-	prompt := promptui.Select{
-		Label: "Wybierz opcję: ",
-		Items: []string{"Powrót"},
-	}
-	_, result, err := prompt.Run()
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return
-	}
-	if result == "Powrót" {
-		print("\033[H\033[2J")
-	}
+
 }
