@@ -12,19 +12,22 @@ import (
 
 var cfg, helpers = config.GetConfig()
 
-func GetLatestCurrencies() types.LatestCurrencies {
+func GetCurrencies(date string) types.LatestCurrencies {
 	var results []types.CurrenciesResponse
 	parse := utils.ParseLatestCurrencies
 
 	for index := range cfg.Endpoints.Currencies {
 		var response []types.CurrenciesResponse
 		param := cfg.Endpoints.Currencies[index]
-		data := requestData(helpers.ApplyURL(param))
+		data := requestData(helpers.ApplyURL(param + "/" + date))
 
 		parse_err := json.Unmarshal(data, &response)
 
 		if parse_err != nil {
-			panic(parse_err)
+			return types.LatestCurrencies{
+				EffectiveDate: date,
+				Items:         []types.LatestCurrenciesItem{},
+			}
 		}
 
 		results = append(results, response[0])

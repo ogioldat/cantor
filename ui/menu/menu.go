@@ -7,6 +7,7 @@ import (
 	"github.com/manifoldco/promptui"
 	"github.com/ogioldat/cantor/config"
 	"github.com/ogioldat/cantor/ui/functionalities"
+	"github.com/ogioldat/cantor/utils"
 	"github.com/pterm/pterm"
 )
 
@@ -14,7 +15,7 @@ var cfg, helpers = config.GetConfig()
 
 func ShowHeader(headstring string) {
 	ptermLogo, _ := pterm.DefaultBigText.WithLetters(
-		pterm.NewLettersFromStringWithStyle("CANTOR", pterm.NewStyle(pterm.FgLightCyan)),
+		pterm.NewLettersFromStringWithStyle("KANTOR", pterm.NewStyle(pterm.FgLightCyan)),
 		pterm.NewLettersFromStringWithStyle("GO", pterm.NewStyle(pterm.FgLightMagenta))).
 		Srender()
 
@@ -50,11 +51,13 @@ func Showmenu() {
 	}
 	if result == "Wyświetl aktualny kursów walut obcych" {
 		ShowHeader("Wyświetl aktualny kursów walut obcych")
-		functionalities.DisplayLatestCurrencies()
+		functionalities.DisplayCurrencies("today")
 	}
 	if result == "Wyświetl kursów walut obcych z dnia wprowadzonego przez użytkownika" {
 		ShowHeader("Wyświetl kursów walut obcych z dnia wprowadzonego przez użytkownika")
-		functionalities.DisplayCurrenciesOnDay()
+		pterm.DefaultHeader.Println("Wprowadź datę!")
+		functionalities.DisplayCurrencies(utils.GetDate())
+		// functionalities.DisplayCurrencies("2021-06-23")
 	}
 	if result == "Wyświetl aktuale kursy kupna i sprzedaży walut obcych" {
 		ShowHeader("Wyświetl aktuale kursy kupna i sprzedaży walut obcych")

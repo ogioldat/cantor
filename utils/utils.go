@@ -1,7 +1,10 @@
 package utils
 
 import (
+	"fmt"
 	"net/url"
+	"strconv"
+	"time"
 
 	"github.com/ogioldat/cantor/types"
 )
@@ -36,4 +39,57 @@ func ParseLatestCurrencies(data []types.CurrenciesResponse) types.LatestCurrenci
 		EffectiveDate: date,
 		Items:         items,
 	}
+}
+
+func GetDate() string {
+	var year, month, day int
+
+	currentYear, _, _ := time.Now().Date()
+
+	for {
+		fmt.Println("Podaj rok: (np: 2020)")
+		fmt.Scanln(&year)
+
+		if !Between(year, 1900, currentYear) {
+			fmt.Println("Niepoprawny rok!")
+		} else {
+			break
+		}
+	}
+
+	fmt.Println("Podaj miesiac: (np: 04)")
+	for {
+		fmt.Scanln(&month)
+
+		if !Between(month, 01, 12) {
+			fmt.Println("Niepoprawny rok!")
+		} else {
+			break
+		}
+	}
+
+	for {
+		fmt.Println("Podaj dzień: (np: 01)")
+		fmt.Scanln(&day)
+
+		if !Between(day, 01, 31) {
+			fmt.Println("Niepoprawny rok!")
+		} else {
+			break
+		}
+	}
+
+	return strconv.Itoa(year) + "-" + FillZero(strconv.Itoa(month)) + "-" + FillZero(strconv.Itoa(day))
+}
+
+func Between(val int, a int, b int) bool {
+	return val >= a && val <= b
+}
+
+func FillZero(val string) string {
+	parsed, _ := strconv.Atoi(val)
+	if parsed < 10 {
+		return "0" + val
+	}
+	return val
 }
