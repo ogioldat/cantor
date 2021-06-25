@@ -2,34 +2,40 @@ package web
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
 	"github.com/ogioldat/cantor/config"
 	"github.com/ogioldat/cantor/types"
+	"github.com/ogioldat/cantor/utils"
 )
 
 var cfg, helpers = config.GetConfig()
 
-func GetLatestCurrencies() {
-	for index := range cfg.Endpoints.Currencies {
-		param := cfg.Endpoints.Currencies[index]
-		var response types.CurrenciesResponse
+func GetLatestCurrencies() types.LatestCurrencies {
+	var results []types.CurrenciesResponse
+	parse := utils.ParseLatestCurrencies
 
-		requestData(helpers.ApplyURL(param), response)
+	for index := range cfg.Endpoints.Currencies {
+		var response []types.CurrenciesResponse
+		param := cfg.Endpoints.Currencies[index]
+		data := requestData(helpers.ApplyURL(param))
+
+		parse_err := json.Unmarshal(data, &response)
+
+		if parse_err != nil {
+			panic(parse_err)
+		}
+
+		results = append(results, response[0])
 	}
+
+	return parse(results)
 }
 
-func requestData(query_url string, response interface{}) {
+func requestData(query_url string) []byte {
 	resp, _ := http.Get(query_url)
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	parse_err := json.Unmarshal(body, &response)
-
-	if parse_err != nil {
-		panic(parse_err)
-	}
-
-	fmt.Println(response)
+	return body
 }

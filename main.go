@@ -2,11 +2,12 @@ package main
 
 import (
 	"github.com/ogioldat/cantor/ui/menu"
+	"github.com/ogioldat/cantor/ui/welcomescreen"
 )
 
 func main() {
-	// web.GetLatestCurrencies()
-	// welcomescreen.IntroScreen()
+	// currencies := web.GetLatestCurrencies()
+	welcomescreen.IntroScreen()
 	menu.Showmenu()
 
 }
