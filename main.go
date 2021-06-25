@@ -1,14 +1,13 @@
 package main
 
 import (
-	"fmt"
-
+	"github.com/ogioldat/cantor/ui/menu"
+	"github.com/ogioldat/cantor/ui/welcomescreen"
 	"github.com/ogioldat/cantor/web"
 )
 
 func main() {
-	fmt.Println("Start")
-	// welcomescreen.IntroScreen()
-
+	welcomescreen.IntroScreen()
+	menu.Showmenu()
 	web.GetLatestCurrencies()
 }
