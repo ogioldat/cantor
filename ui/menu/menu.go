@@ -64,19 +64,7 @@ func Showmenu() {
 	if result == "Przelicz waluty po aktualnej cenie bądź cenie z wybranego dnia" {
 		ShowHeader("Przelicz waluty po aktualnej cenie bądź cenie z wybranego dnia")
 		functionalities.CurrencyConversion()
-		prompt := promptui.Select{
-			Label: "Wybierz opcję: ",
-			Items: []string{"Powrót"},
-		}
-		_, result, err := prompt.Run()
-		if err != nil {
-			fmt.Printf("Prompt failed %v\n", err)
-			return
-		}
-		if result == "Powrót" {
-			print("\033[H\033[2J")
-			Showmenu()
-		}
+
 	}
 	if result == "Ustawienia" {
 		ShowHeader("Ustawienia")
