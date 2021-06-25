@@ -50,7 +50,7 @@ func Showmenu() {
 	}
 	if result == "Wyświetl aktualny kursów walut obcych" {
 		ShowHeader("Wyświetl aktualny kursów walut obcych")
-		functionalities.DisplayCurrentCurrencies()
+		functionalities.DisplayLatestCurrencies()
 	}
 	if result == "Wyświetl kursów walut obcych z dnia wprowadzonego przez użytkownika" {
 		ShowHeader("Wyświetl kursów walut obcych z dnia wprowadzonego przez użytkownika")

@@ -2,12 +2,30 @@ package functionalities
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/manifoldco/promptui"
+	"github.com/ogioldat/cantor/ui/table"
+	"github.com/ogioldat/cantor/web"
 )
 
-func DisplayCurrentCurrencies() {
+func DisplayLatestCurrencies() {
+	currencies := web.GetLatestCurrencies()
 
+	var rows [][]string
+
+	for _, currency := range currencies.Items {
+		fmt.Println(currency)
+		val := strconv.FormatFloat(float64(currency.Value), 'f', 4, 64)
+
+		rows = append(rows, []string{
+			currency.Name,
+			val,
+			currency.Code,
+		})
+	}
+
+	table.ShowMyPrettyTable(rows)
 }
 
 func DisplayCurrenciesOnDay() {

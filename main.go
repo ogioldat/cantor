@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-	// currencies := web.GetLatestCurrencies()
 	welcomescreen.IntroScreen()
 	menu.Showmenu()
 
