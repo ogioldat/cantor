@@ -7,7 +7,8 @@ import (
 )
 
 func main() {
+	web.GetLatestCurrencies()
 	welcomescreen.IntroScreen()
 	menu.Showmenu()
-	web.GetLatestCurrencies()
+
 }
