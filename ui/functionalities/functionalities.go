@@ -1,6 +1,5 @@
 package functionalities
 
-<<<<<<< HEAD
 import (
 	"fmt"
 	"strconv"
@@ -12,9 +11,7 @@ import (
 
 func DisplayLatestCurrencies() {
 	currencies := web.GetLatestCurrencies()
-=======
 func DisplayCurrentCurrencies() {
->>>>>>> aeba3ad8e91e2d1dd2265bc26d3d4c97c0519f0c
 
 	var rows [][]string
 
@@ -33,6 +30,18 @@ func DisplayCurrentCurrencies() {
 }
 
 func DisplayCurrenciesOnDay() {
+	fmt("Podaj rok: (np:2020)")
+	var year string
+    fmt.Scanln(&year)
+	fmt("Podaj miesiac: (np:04)")
+	var month string
+    fmt.Scanln(&month)
+	fmt("Podaj dzień: (np:01)")
+	var day string
+    fmt.Scanln(&day)
+
+	var date string = year+"-"+month+"-"+day
+
 
 }
 
