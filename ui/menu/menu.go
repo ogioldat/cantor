@@ -11,9 +11,10 @@ import (
 	"github.com/pterm/pterm"
 )
 
-var cfg, helpers = config.GetConfig()
+var cfg, _ = config.GetConfig()
 
 func ShowHeader(headstring string) {
+	fmt.Println()
 	ptermLogo, _ := pterm.DefaultBigText.WithLetters(
 		pterm.NewLettersFromStringWithStyle("KANTOR", pterm.NewStyle(pterm.FgLightCyan)),
 		pterm.NewLettersFromStringWithStyle("GO", pterm.NewStyle(pterm.FgLightMagenta))).
@@ -25,7 +26,6 @@ func ShowHeader(headstring string) {
 }
 
 func Showmenu() {
-
 	var menuItems []string
 
 	// fmt.Println(cfg.MenuOptions)
