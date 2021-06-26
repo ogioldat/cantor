@@ -46,8 +46,23 @@ func DisplayCurrentCurrenciesBuySell(date string) {
 	table.ShowMyPrettyTableBuyAndSell(rows)
 }
 
-func DisplayCurrentCurrenciesBuySellOnDay() {
+func DisplayCurrentCurrenciesBuySellOnDay(date string) {
+	currencies := web.GetCurrencies(date)
 
+	var rows [][]string
+
+	for _, currency := range currencies.Items {
+		val := strconv.FormatFloat(float64(currency.Value), 'f', 4, 64)
+		sellValue := strconv.FormatFloat(float64(currency.Value)*float64(1.05), 'f', 4, 64)
+		rows = append(rows, []string{
+			currency.Name,
+			val,
+			sellValue,
+			currency.Code,
+		})
+	}
+
+	table.ShowMyPrettyTableBuyAndSell(rows)
 }
 
 func CurrencyConversion(date string) [][]string {

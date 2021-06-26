@@ -65,6 +65,10 @@ func Showmenu() {
 		ShowHeader("Wyświetl aktuale kursy kupna i sprzedaży walut obcych")
 		functionalities.DisplayCurrentCurrenciesBuySell("last")
 	}
+	if result == "Wyświetl kursy kupna i sprzedaży walut obcych z wybranego dnia" {
+		ShowHeader("Wyświetl kursy kupna i sprzedaży walut obcych z wybranego dnia")
+		functionalities.DisplayCurrentCurrenciesBuySellOnDay(utils.GetDate())
+	}
 
 	if result == "Przelicz waluty po aktualnej cenie bądź cenie z wybranego dnia" {
 		ShowHeader("Przelicz waluty po aktualnej cenie bądź cenie z wybranego dnia")
