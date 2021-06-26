@@ -44,6 +44,5 @@ func GetCurrencies(date string) types.LatestCurrencies {
 func requestData(query_url string) []byte {
 	resp, _ := http.Get(query_url)
 	body, _ := ioutil.ReadAll(resp.Body)
-
 	return body
 }
