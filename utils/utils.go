@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/ogioldat/cantor/types"
+	"github.com/pterm/pterm"
 )
 
 func ParseURLParams(params map[string]string) string {
@@ -48,34 +49,34 @@ func GetDate() string {
 	currentYear, currentMonth, currentDay := time.Now().Date()
 
 	for {
-		fmt.Println("Podaj rok: (np: 2020)")
+		pterm.Info.Println("Podaj rok: (np: 2020)")
 		fmt.Scanln(&year)
 
 		if !Between(year, 1900, currentYear) {
-			fmt.Println("Niepoprawny rok!")
+			pterm.Error.Println("Niepoprawny rok!")
 		} else {
 			break
 		}
 	}
 
 	for {
-		fmt.Println("Podaj miesiac: (np: 04)")
+		pterm.Info.Println("Podaj miesiac: (np: 04)")
 		fmt.Scanln(&month)
 
 		if !Between(month, 01, 12) || (year == int(currentYear) && month > int(currentMonth)) {
-			fmt.Println("Niepoprawny miesiac!")
+			pterm.Error.Println("Niepoprawny miesiac!")
 		} else {
 			break
 		}
 	}
 
 	for {
-		fmt.Println("Podaj dzień: (np: 01)")
+		pterm.Info.Println("Podaj dzień: (np: 01)")
 		fmt.Scanln(&day)
 
 		if !Between(day, 01, 31) ||
 			(year == int(currentYear) && month > int(currentMonth) && day > int(currentDay)) {
-			fmt.Println("Niepoprawny dzień!")
+			pterm.Error.Println("Niepoprawny dzień!")
 		} else {
 			break
 		}
