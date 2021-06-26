@@ -44,7 +44,7 @@ func GetConfig() (Config, Helpers) {
 	return Config{
 			NBP_BASE_URL: "http://api.nbp.pl/api/exchangerates/tables/",
 			Endpoints: Endpoints{
-				Currencies: []string{"A", "B", "C"},
+				Currencies: []string{"A"},
 			},
 			MenuOptions: options,
 		},

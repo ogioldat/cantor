@@ -51,13 +51,12 @@ func Showmenu() {
 	}
 	if result == "Wyświetl aktualny kursów walut obcych" {
 		ShowHeader("Wyświetl aktualny kursów walut obcych")
-		functionalities.DisplayCurrencies("today")
+		functionalities.DisplayCurrencies("last")
 	}
 	if result == "Wyświetl kursów walut obcych z dnia wprowadzonego przez użytkownika" {
 		ShowHeader("Wyświetl kursów walut obcych z dnia wprowadzonego przez użytkownika")
 		pterm.DefaultHeader.Println("Wprowadź datę!")
 		functionalities.DisplayCurrencies(utils.GetDate())
-		// functionalities.DisplayCurrencies("2021-06-23")
 	}
 	if result == "Wyświetl aktuale kursy kupna i sprzedaży walut obcych" {
 		ShowHeader("Wyświetl aktuale kursy kupna i sprzedaży walut obcych")

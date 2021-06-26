@@ -24,16 +24,21 @@ func GetCurrencies(date string) types.LatestCurrencies {
 		parse_err := json.Unmarshal(data, &response)
 
 		if parse_err != nil {
-			return types.LatestCurrencies{
-				EffectiveDate: date,
-				Items:         []types.LatestCurrenciesItem{},
-			}
+			continue
 		}
 
 		results = append(results, response[0])
 	}
+	parsed_results := parse(results)
 
-	return parse(results)
+	if len(parsed_results.Items) == 0 {
+		return types.LatestCurrencies{
+			EffectiveDate: date,
+			Items:         []types.LatestCurrenciesItem{},
+		}
+	}
+
+	return parsed_results
 }
 
 func requestData(query_url string) []byte {

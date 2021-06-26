@@ -44,7 +44,7 @@ func ParseLatestCurrencies(data []types.CurrenciesResponse) types.LatestCurrenci
 func GetDate() string {
 	var year, month, day int
 
-	currentYear, _, _ := time.Now().Date()
+	currentYear, currentMonth, currentDay := time.Now().Date()
 
 	for {
 		fmt.Println("Podaj rok: (np: 2020)")
@@ -57,12 +57,12 @@ func GetDate() string {
 		}
 	}
 
-	fmt.Println("Podaj miesiac: (np: 04)")
 	for {
+		fmt.Println("Podaj miesiac: (np: 04)")
 		fmt.Scanln(&month)
 
-		if !Between(month, 01, 12) {
-			fmt.Println("Niepoprawny rok!")
+		if !Between(month, 01, 12) || (year == int(currentYear) && month > int(currentMonth)) {
+			fmt.Println("Niepoprawny miesiac!")
 		} else {
 			break
 		}
@@ -72,8 +72,9 @@ func GetDate() string {
 		fmt.Println("Podaj dzień: (np: 01)")
 		fmt.Scanln(&day)
 
-		if !Between(day, 01, 31) {
-			fmt.Println("Niepoprawny rok!")
+		if !Between(day, 01, 31) ||
+			(year == int(currentYear) && month > int(currentMonth) && day > int(currentDay)) {
+			fmt.Println("Niepoprawny dzień!")
 		} else {
 			break
 		}
