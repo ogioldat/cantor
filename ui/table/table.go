@@ -7,7 +7,7 @@ import (
 	"github.com/pterm/pterm"
 )
 
-func ShowMyPrettyTable(data [][]string) {
+func ShowMyPrettyTable(data [][]string, headers []string) {
 
 	if len(data) == 0 {
 		pterm.Info.Println("Brak danych! Podaj inną datę")
@@ -15,7 +15,7 @@ func ShowMyPrettyTable(data [][]string) {
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Waluta", "Cena", "Kod"})
+	table.SetHeader(headers)
 	table.SetBorder(false)
 	table.AppendBulk(data)
 	table.Render()

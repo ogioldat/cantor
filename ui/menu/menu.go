@@ -36,7 +36,7 @@ func Showmenu() {
 	}
 	ShowHeader("MENU GŁÓWNE")
 	prompt := promptui.Select{
-		Label: "Wybierz opcję: ",
+		Label: "Wybierz opcję",
 		Items: []string{"Wyświetl aktualny kursów walut obcych",
 			"Wyświetl kursów walut obcych z dnia wprowadzonego przez użytkownika",
 			"Wyświetl aktuale kursy kupna i sprzedaży walut obcych",
@@ -68,8 +68,21 @@ func Showmenu() {
 
 	if result == "Przelicz waluty po aktualnej cenie bądź cenie z wybranego dnia" {
 		ShowHeader("Przelicz waluty po aktualnej cenie bądź cenie z wybranego dnia")
-		pterm.DefaultHeader.Println("Wprowadź datę!")
-		functionalities.CurrencyConversion(utils.GetDate())
+
+		prompt := promptui.Select{
+			Label: "Wybierz akcję",
+			Items: []string{"Użyj ostatniej daty", "Wprowadź datę"},
+		}
+
+		_, result, _ := prompt.Run()
+
+		if result == "Wprowadź datę" {
+			pterm.DefaultHeader.Println("Wprowadź datę!")
+			functionalities.CurrencyConversion(utils.GetDate())
+		} else {
+			pterm.DefaultHeader.Println("Wprowadź datę!")
+			functionalities.CurrencyConversion("last")
+		}
 
 	}
 	if result == "Ustawienia" {
