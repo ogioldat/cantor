@@ -45,7 +45,7 @@ func CurrencyConversion(date string) [][]string {
 		options = append(options, currency.Name)
 
 	}
-git
+
 	if len(options) != 0 {
 		prompt := promptui.Select{
 			Label: "Wybierz opcję: ",
