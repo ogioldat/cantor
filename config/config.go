@@ -13,6 +13,7 @@ type Config struct {
 	NBP_BASE_URL string
 	Endpoints    Endpoints
 	MenuOptions  map[string]MenuOption
+	Provision    float64
 }
 
 type Helpers struct {
@@ -28,6 +29,12 @@ var DEFAULT_PARAMS = map[string]string{"format": "json"}
 func ApplyURL(endpoint string) string {
 	cfg, _ := GetConfig()
 	return cfg.NBP_BASE_URL + endpoint + "?" + utils.ParseURLParams(DEFAULT_PARAMS)
+}
+
+var PROVISION = float64(1.05)
+
+func SetProvision(val float64) {
+	PROVISION = val
 }
 
 func GetConfig() (Config, Helpers) {
@@ -47,6 +54,7 @@ func GetConfig() (Config, Helpers) {
 				Currencies: []string{"A"},
 			},
 			MenuOptions: options,
+			Provision:   PROVISION,
 		},
 		Helpers{
 			ApplyURL,

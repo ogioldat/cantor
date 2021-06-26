@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"net/url"
 	"strconv"
@@ -93,4 +94,12 @@ func FillZero(val string) string {
 		return "0" + val
 	}
 	return val
+}
+
+func ValidateProvision(input string) error {
+	value, err := strconv.ParseFloat(input, 64)
+	if err != nil || value <= 0 || value >= 500 {
+		return errors.New("niepoprawne dane")
+	}
+	return nil
 }

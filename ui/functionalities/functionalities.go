@@ -5,7 +5,9 @@ import (
 	"strconv"
 
 	"github.com/manifoldco/promptui"
+	"github.com/ogioldat/cantor/config"
 	"github.com/ogioldat/cantor/ui/table"
+	"github.com/ogioldat/cantor/utils"
 	"github.com/ogioldat/cantor/web"
 	"github.com/pterm/pterm"
 )
@@ -30,12 +32,13 @@ func DisplayCurrencies(date string) {
 
 func DisplayCurrentCurrenciesBuySell(date string) {
 	currencies := web.GetCurrencies(date)
+	cfg, _ := config.GetConfig()
 
 	var rows [][]string
 
 	for _, currency := range currencies.Items {
 		val := strconv.FormatFloat(float64(currency.Value), 'f', 4, 64)
-		sellValue := strconv.FormatFloat(float64(currency.Value)*float64(1.05), 'f', 4, 64)
+		sellValue := strconv.FormatFloat(float64(currency.Value)*float64(cfg.Provision), 'f', 4, 64)
 		rows = append(rows, []string{
 			currency.Name,
 			val,
@@ -49,12 +52,13 @@ func DisplayCurrentCurrenciesBuySell(date string) {
 
 func DisplayCurrentCurrenciesBuySellOnDay(date string) {
 	currencies := web.GetCurrencies(date)
+	cfg, _ := config.GetConfig()
 
 	var rows [][]string
 
 	for _, currency := range currencies.Items {
 		val := strconv.FormatFloat(float64(currency.Value), 'f', 4, 64)
-		sellValue := strconv.FormatFloat(float64(currency.Value)*float64(1.05), 'f', 4, 64)
+		sellValue := strconv.FormatFloat(float64(currency.Value)*float64(cfg.Provision), 'f', 4, 64)
 		rows = append(rows, []string{
 			currency.Name,
 			val,
@@ -75,6 +79,8 @@ func CurrencyConversion(date string) {
 		options = append(options, currency.Name)
 	}
 
+	cfg, _ := config.GetConfig()
+
 	if len(options) != 0 {
 		prompt := promptui.Select{
 			Label: "Wybierz walutę",
@@ -84,7 +90,7 @@ func CurrencyConversion(date string) {
 		_, result, err := prompt.Run()
 
 		if err != nil {
-			fmt.Printf("Prompt failed %v\n", err)
+			fmt.Printf("Wystąpił nieoczekiwany błąd %v\n", err)
 			return
 		}
 
@@ -95,7 +101,7 @@ func CurrencyConversion(date string) {
 		for _, currency := range currencies.Items {
 			if currency.Name == result {
 				val := strconv.FormatFloat(float64(currency.Value), 'f', 4, 64)
-				multiplied_val := strconv.FormatFloat(float64(currency.Value)*float64(amountOfMoney), 'f', 4, 64)
+				multiplied_val := strconv.FormatFloat(float64(currency.Value)*amountOfMoney*float64(cfg.Provision), 'f', 4, 64)
 
 				rows = append(rows, []string{
 					currency.Name,
@@ -112,5 +118,38 @@ func CurrencyConversion(date string) {
 }
 
 func Settings() {
+	cfg, _ := config.GetConfig()
+
+	provision_percent := (cfg.Provision - 1) * 100
+	provision_str := strconv.FormatFloat(provision_percent, 'f', 2, 64)
+
+	provision_msg := "Ustaw prowizję (domyślnie " + provision_str + "% )"
+
+	prompt := promptui.Select{
+		Label: "Wybierz walutę",
+		Items: []string{provision_msg, "Powrót"},
+	}
+
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Wystąpił nieoczekiwany błąd %v\n", err)
+		return
+	}
+
+	if result == provision_msg {
+		prompt := promptui.Prompt{
+			Label:    "Number",
+			Validate: utils.ValidateProvision,
+		}
+
+		result, _ := prompt.Run()
+		fl, _ := strconv.ParseFloat(result, 64)
+		config.SetProvision(1 + fl/100)
+	}
+
+	if result == "Powrót" {
+		return
+	}
 
 }

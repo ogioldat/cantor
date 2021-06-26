@@ -49,7 +49,7 @@ func Showmenu() {
 	_, result, err := prompt.Run()
 
 	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
+		fmt.Printf("Wystąpił nieoczekiwany błąd %v\n", err)
 		return
 	}
 	if result == "Wyświetl aktualny kursów walut obcych" {
@@ -92,6 +92,7 @@ func Showmenu() {
 	if result == "Ustawienia" {
 		ShowHeader("Ustawienia")
 		functionalities.Settings()
+		Showmenu()
 	}
 	if result == "Zakończ program" {
 		print("\033[H\033[2J")
